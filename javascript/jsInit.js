@@ -1,4 +1,4 @@
-jQuery('#Form_EditForm_ClassName[value="ContactPage"]').entwine({
+jQuery('#Form_EditForm_GMapLat').entwine({
 	onmatch : function() {
 		initialiseMap();
 	}

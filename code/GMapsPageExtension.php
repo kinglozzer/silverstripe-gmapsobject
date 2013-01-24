@@ -1,19 +1,16 @@
 <?php
 
-class ContactPage extends Page {
+class GMapsPageExtension extends DataExtension {
 
 	public static $db = array(
 		'GMapLat' => 'Float(23,20)',
 		'GMapLon' => 'Float(23,20)'
 	);
 
-	public function getCMSFields() {
-		$fields = parent::getCMSFields();
-
-
+	public function updateCMSFields(FieldList $fields) {
 		$GMapLatField = new HiddenField('GMapLat');
 		$GMapLonField = new HiddenField('GMapLon');
-		$mapField = new LiteralField("gMapTemplate", $this->renderWith('gMap'));		
+		$mapField = new LiteralField("gMapTemplate", $this->owner->renderWith('gMap'));
 
 		$fields->addFieldToTab('Root.Google Map', $GMapLatField);
 		$fields->addFieldToTab('Root.Google Map', $GMapLonField);
@@ -21,11 +18,5 @@ class ContactPage extends Page {
 
 		return $fields;
 	}
-
-}
-
-class ContactPage_Controller extends Page_Controller {
-
-
 
 }
