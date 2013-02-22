@@ -18,12 +18,12 @@ Simply clone or download this repository and put it in a folder called `SilverSt
 
 ###Customisation:###
 
-If you wish to use different field names, be sure to update `javascript/jsInit.js` with the new field IDs.
+If you wish to use different field names, be sure to update `javascript/GMapsPage.js` with the new field IDs.
 
 ###Implementation details:###
 
-The Google Maps API, and `jsInit.js` are loaded as `LeftAndMain` javascript requirements, instead of loading them as requirements in `updateCMSFields()`. This is because the CMS sometimes failed to load the javascript files when loading the edit form via AJAX - a hard refresh would then load the files in correctly.
+The Google Maps API, and `GMapsPage.js` are loaded as `LeftAndMain` javascript requirements, instead of loading them as requirements in `updateCMSFields()`. This is because the CMS sometimes failed to load the javascript files when loading the edit form via AJAX - a hard refresh would then load the files in correctly. The wonderful Entwine library handles all the events.
 
 ###Contributing:###
 
-Please feel free to submit pull requests for bug fixes and code improvements. My javascript code could no-doubt be cleaned up by someone more experienced than myself.
+Please feel free to submit pull requests for bug fixes and code improvements.
