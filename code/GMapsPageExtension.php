@@ -10,7 +10,7 @@ class GMapsPageExtension extends DataExtension {
 	public function updateCMSFields(FieldList $fields) {
 		$GMapLatField = new HiddenField('GMapLat');
 		$GMapLonField = new HiddenField('GMapLon');
-		$mapField = new LiteralField("gMapTemplate", $this->owner->renderWith('gMap'));
+		$mapField = new LiteralField("GMapTemplate", $this->owner->renderWith('GMapsPage_Fields'));
 
 		$fields->addFieldToTab('Root.Google Map', $GMapLatField);
 		$fields->addFieldToTab('Root.Google Map', $GMapLonField);
