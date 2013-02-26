@@ -1,6 +1,13 @@
 /**
  * File: GMapsPage.js
  */
+var ss = ss || {};
+
+/**
+ * Wrapper for Google Maps objects
+ */
+ss.GMapsPage = {};
+
 (function($) {
     $.entwine('ss', function($) {
 
@@ -12,7 +19,23 @@
         $('#GMapsPage_Map').entwine({
             // Constructor: onmatch
             onmatch: function() {
-                initialiseMap();
+                var center = new google.maps.LatLng(latField.val(), lngField.val()),
+                    options = { 
+                        zoom: 13,
+                        center: center,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    },
+                    map = new google.maps.Map(document.getElementById('GMapsPage_Map'), options),
+                    marker = new google.maps.Marker({
+                        position: center,
+                        map: map,
+                        draggable: true
+                    });
+
+                google.maps.event.addListener(marker, 'dragend', updateMarkerPosition);
+                ss.GMapsPage.marker = marker;
+                ss.GMapsPage.map = map;
+                ss.GMapsPage.geocoder = new google.maps.Geocoder();
             }
         });
 
@@ -25,8 +48,9 @@
         $('#Root_GoogleMap[aria-hidden="false"]').entwine({
             // Constructor: onmatch
             onmatch: function() {
+                var map = ss.GMapsPage.map;
                 google.maps.event.trigger(map, 'resize');
-                center = marker.getPosition();
+                center = ss.GMapsPage.marker.getPosition();
                 map.panTo(center);
             }
         });
@@ -52,39 +76,15 @@
         });
     });
 
-    var lat, // Coordinates
-        lng,
-        latField = $('.cms-edit-form input[name=GMapLat]'), // Fields
-        lngField = $('.cms-edit-form input[name=GMapLon]'),
-        center = new google.maps.LatLng(latField.val(), lngField.val()),
-        options = { 
-            zoom: 13,
-            center: center,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        },
-        map = new google.maps.Map(document.getElementById('GMapsPage_Map'), options),
-        marker = new google.maps.Marker({
-            position: center,
-            map: map,
-            draggable: true
-        }),
-        geocoder = new google.maps.Geocoder();
-
-    /**
-     * Pans the map to center & adds event listener for marker dragging
-     */
-    function initialiseMap() {
-        center = marker.getPosition();
-        map.panTo(center);
-        google.maps.event.addListener(marker, 'dragend', updateMarkerPosition);
-    }
+    var latField = $('.cms-edit-form input[name=GMapLat]'),
+        lngField = $('.cms-edit-form input[name=GMapLon]');
 
     /**
      * Updates the hidden fields for coordinates and triggers an onchange event as 
      * 3.1's changetracker needs that event to pick up the changes
      */
     function updateMarkerPosition() {
-        var latLng = marker.getPosition();
+        var latLng = ss.GMapsPage.marker.getPosition();
         latField.val(latLng.lat()).change();
         lngField.val(latLng.lng()).change();
     }
@@ -94,17 +94,18 @@
      * fields with coordinates
      */
     function geocodePosition(address) {
-        geocoder.geocode({
+        ss.GMapsPage.geocoder.geocode({
                 'address': address
             }, function(responses) {
                 if (responses && responses.length > 0) {
-                    lat = responses[0].geometry.location.lat();
-                    lng = responses[0].geometry.location.lng();
-                    center = new google.maps.LatLng(lat, lng);
+                    var lat = responses[0].geometry.location.lat(),
+                        lng = responses[0].geometry.location.lng(),
+                        center = new google.maps.LatLng(lat, lng);
+                        
                     latField.val(lat);
                     lngField.val(lng);
-                    map.setCenter(center);
-                    marker.setPosition(center);
+                    ss.GMapsPage.map.setCenter(center);
+                    ss.GMapsPage.marker.setPosition(center);
                     updateMarkerPosition();
                 }
             }
