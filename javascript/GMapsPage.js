@@ -13,14 +13,16 @@ ss.GMapsPage = {};
 
         /**
          * ID: #GMapsPage_Map
-         * 
+         *
          * Initialise map upon matching appropriate field
          */
         $('#GMapsPage_Map').entwine({
             // Constructor: onmatch
             onmatch: function() {
-                var center = new google.maps.LatLng(latField.val(), lngField.val()),
-                    options = { 
+                ss.GMapsPage.latField = $('.cms-edit-form input[name=GMapLat]');
+                ss.GMapsPage.lngField = $('.cms-edit-form input[name=GMapLon]');
+                var center = new google.maps.LatLng(ss.GMapsPage.latField.val(), ss.GMapsPage.lngField.val()),
+                    options = {
                         zoom: 13,
                         center: center,
                         mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -41,8 +43,8 @@ ss.GMapsPage = {};
 
         /**
          * ID: #Root_GoogleMap[aria-hidden="false"]
-         * 
-         * Redraw map when tab becomes visible. Trigger resize event when switching tabs as 
+         *
+         * Redraw map when tab becomes visible. Trigger resize event when switching tabs as
          * map will render at 0 width/height in inactive tabs. Also need to re-center after
          */
         $('#Root_GoogleMap[aria-hidden="false"]').entwine({
@@ -57,7 +59,7 @@ ss.GMapsPage = {};
 
         /**
          * Class: .cms-edit-form input[name=SearchAddress]
-         * 
+         *
          * Bind events for geocoding address
          */
         $('.cms-edit-form input[name=SearchAddress]').entwine({
@@ -76,17 +78,14 @@ ss.GMapsPage = {};
         });
     });
 
-    var latField = $('.cms-edit-form input[name=GMapLat]'),
-        lngField = $('.cms-edit-form input[name=GMapLon]');
-
     /**
-     * Updates the hidden fields for coordinates and triggers an onchange event as 
+     * Updates the hidden fields for coordinates and triggers an onchange event as
      * 3.1's changetracker needs that event to pick up the changes
      */
     function updateMarkerPosition() {
         var latLng = ss.GMapsPage.marker.getPosition();
-        latField.val(latLng.lat()).change();
-        lngField.val(latLng.lng()).change();
+        ss.GMapsPage.latField.val(latLng.lat()).change();
+        ss.GMapsPage.lngField.val(latLng.lng()).change();
     }
 
     /**
@@ -101,9 +100,7 @@ ss.GMapsPage = {};
                     var lat = responses[0].geometry.location.lat(),
                         lng = responses[0].geometry.location.lng(),
                         center = new google.maps.LatLng(lat, lng);
-                        
-                    latField.val(lat);
-                    lngField.val(lng);
+
                     ss.GMapsPage.map.setCenter(center);
                     ss.GMapsPage.marker.setPosition(center);
                     updateMarkerPosition();
