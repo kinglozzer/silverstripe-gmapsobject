@@ -1,0 +1,1 @@
+<div class="message warning">Please specify a Google Maps API key in the 'Settings' area of the CMS</div>
