@@ -46,8 +46,8 @@ function initGMapsObject() {
         };
 
         var mapCenter = new google.maps.LatLng(
-                (ss.GMapsObject.latField.val()) ? parseFloat(ss.GMapsObject.latField.val()) : 0,
-                (ss.GMapsObject.lngField.val()) ? parseFloat(ss.GMapsObject.lngField.val()) : 0
+                (ss.GMapsObject.latField.val()) ? parseFloat(ss.GMapsObject.latField.val()) : 51.511165,
+                (ss.GMapsObject.lngField.val()) ? parseFloat(ss.GMapsObject.lngField.val()) : -0.119774
             ),
             mapOptions = {
                 zoom: 13,
