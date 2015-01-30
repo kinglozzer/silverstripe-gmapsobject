@@ -42,4 +42,14 @@ class GMapsObjectExtension extends DataExtension {
 		return $fields;
 	}
 
+	public function onBeforeWrite() {
+		if( ! $this->owner->GMapLat) {
+			$this->owner->GMapLat = '51.511165';
+		}
+
+		if( ! $this->owner->GMapLon) {
+			$this->owner->GMapLon = '-0.119774';
+		}
+	}
+
 }
