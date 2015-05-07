@@ -5,7 +5,7 @@
  */
 class GMapsObjectExtension extends DataExtension {
 
-	public static $db = array(
+	private static $db = array(
 		'GMapLat' => 'Varchar',
 		'GMapLon' => 'Varchar',
 		'GMapHeading' => 'Varchar',
