@@ -21,7 +21,7 @@ ss.hasLoadedGMapsAPI = false;
                         key = $('.cms-edit-form input[name=GMapAPIKey]').val();
 
                     script.type = "text/javascript";
-                    script.src = "http://maps.googleapis.com/maps/api/js?key=" + key + "&sensor=false&callback=initGMapsObject";
+                    script.src = "//maps.googleapis.com/maps/api/js?key=" + key + "&sensor=false&callback=initGMapsObject";
                     document.body.appendChild(script);
                     ss.hasLoadedGMapsAPI = true;
                 } else {
