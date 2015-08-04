@@ -26,7 +26,7 @@ class GMapsObjectExtension extends DataExtension {
 			$GMapLonField = new HiddenField('GMapLon');
 			$GMapHeadingField = new HiddenField('GMapHeading');
 			$GMapPitchField = new HiddenField('GMapPitch');
-			$data = array('EnableStreetView' => $config->GMapsEnableStreetView);
+			$data = array('EnableStreetView' => $config->obj('GMapsEnableStreetView'));
 			$mapField = new LiteralField("GMapTemplate", $this->owner->renderWith('GMapsObject_Fields', $data));
 
 			$fields->addFieldToTab('Root.Google Map', $GMapAPIKeyField);
