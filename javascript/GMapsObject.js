@@ -130,7 +130,9 @@ function initGMapsObject() {
                         if (d) clearTimeout(d);
                         // Set timeout to prevent lots of maps API requests
                         var d = setTimeout(function() {
-                            geocodePosition(self.val());
+                            if (self.val()) {
+                                geocodePosition(self.val());
+                            }
                         }, 500);
                     });
                 }
