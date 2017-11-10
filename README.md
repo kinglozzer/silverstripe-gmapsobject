@@ -5,7 +5,7 @@ A module to add a Google Map (optionally with Streetview) to a DataObject or Pag
 By:
 Loz Calver - [Bigfork Ltd](http://www.bigfork.co.uk/).
 
-<img src="screenshots/screen.png" width="1252" height="867" alt="" />
+<img src="screenshots/screen.png" width="800" height="550" alt="" />
 
 ## Installation:
 
