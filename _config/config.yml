@@ -1,3 +1,3 @@
-SiteConfig:
+SilverStripe\SiteConfig\SiteConfig:
   extensions:
-    - GMapsObjectSettings
+    - Kinglozzer\SilverStripeGMapsObject\SiteConfigExtension

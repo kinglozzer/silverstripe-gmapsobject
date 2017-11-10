@@ -1,79 +1,64 @@
-#SilverStripeGMapsObject#
+# SilverStripeGMapsObject
 
 A module to add a Google Map (optionally with Streetview) to a DataObject or Page, with users able to specify a location marker in the CMS. No front-end implementation is provided, though simple examples are shown below.
 
 By:
 Loz Calver - [Bigfork Ltd](http://www.bigfork.co.uk/).
 
-![screen-1](screenshots/screen-1.png)
-![screen-2](screenshots/screen-2.png)
+<img src="screenshots/screen.png" width="1252" height="867" alt="" />
 
-##Installation:##
+## Installation:
 
-###Composer:###
+### Composer:
 
 ```
-require: "kinglozzer/silverstripegmapsobject": "dev-master"
+require: "kinglozzer/silverstripegmapsobject": "^2"
 ```
 
-###Download:###
+### Enable:
 
-Simply clone or download this repository and put it in a folder called 'silverstripegmapsobject' in your SilverStripe installation folder, then run `dev/build`.
-
-###Enable:###
-
-Apply the `GMapsObjectExtension` to the DataObject or page type that you require a map on and do a `dev/build?flush=1`.
-
-```php
-Page::add_extension('GMapsObjectExtension');
-```
-
-or
+Apply the extension `Kinglozzer\SilverStripeGMapsObject\Extension` to the DataObject or page type that you require a map on and do a `dev/build?flush=1`.
 
 ```yaml
 Page:
   extensions:
-    - GMapsObjectExtension
+    - Kinglozzer\SilverStripeGMapsObject\Extension
 ```
 
 You'll then see the new 'Google Map' tab on your DataObject / Page edit form. You also need to specify your Google Maps API key in the 'Settings' area of the CMS before you'll be able to see the map.
 
-##Front-end Examples:##
+## Front-end Examples:
 
 The co-ordinates (and heading/pitch if you're using Streetview) are stored in the following database fields:
 
-- GMapLat
-- GMapLon
-- GMapHeading
-- GMapPitch
+- Latitude
+- Longitude
+- Heading
+- Pitch
 
 You'll need to give your JavaScript access to these properties, one method of doing this is as follows:
 
 ```php
-class Page extends SiteTree {
-
-}
-
-class Page_Controller extends ContentController {
-
-	public function init() {
+class PageController extends ContentController
+{
+	public function init()
+    {
 		parent::init();
 
 		// Fetch the Google Maps API key from the site settings
 		$key = SiteConfig::current_site_config()->GMapsAPIKey;
-		Requirements::javascript('http://maps.googleapis.com/maps/api/js?key='.$key.'&sensor=false');
+		Requirements::javascript('https://maps.googleapis.com/maps/api/js?key='.$key.'&sensor=false');
 
 		Requirements::customScript(<<<JS
 var gMap = {
-	'lat': $this->GMapLat,
-	'lon': $this->GMapLon,
-	'heading': $this->GMapHeading,
-	'pitch': $this->GMapPitch
+	'lat': $this->Latitude,
+	'lon': $this->Longitude,
+	'heading': $this->Heading,
+	'pitch': $this->Pitch
 };
 JS
 		);
 	}
-
 }
 ```
 
@@ -118,7 +103,3 @@ var panorama = new  google.maps.StreetViewPanorama(document.getElementById("stre
 		map.setCenter(panorama.getPosition());
 	});
 ```
-
-##Known Bugs:##
-
-Streetview doesn't always initialise correctly. Typing a rough location into the search box and saving the object seems to fix it, I'm looking into it.

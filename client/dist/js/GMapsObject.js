@@ -7,7 +7,6 @@ ss.hasLoadedGMapsAPI = false;
 
 (function($) {
     $.entwine('ss', function($) {
-
         /**
          * ID: #GMapsObject_Map
          *
@@ -16,7 +15,7 @@ ss.hasLoadedGMapsAPI = false;
         $('#GMapsObject_Map').entwine({
             // Constructor: onmatch
             onmatch: function() {
-                if ( ! ss.hasLoadedGMapsAPI) {
+                if (!ss.hasLoadedGMapsAPI) {
                     var script = document.createElement("script"),
                         key = $('.cms-edit-form input[name=GMapAPIKey]').val();
 
@@ -38,17 +37,14 @@ function initGMapsObject() {
          * Wrapper for Google Maps objects
          */
         ss.GMapsObject = {
-            latField: $('.cms-edit-form input[name=GMapLat]'),
-            lngField: $('.cms-edit-form input[name=GMapLon]'),
-            headingField: $('.cms-edit-form input[name=GMapHeading]'),
-            pitchField: $('.cms-edit-form input[name=GMapPitch]'),
+            latField: $('.cms-edit-form input[name=Latitude]'),
+            lngField: $('.cms-edit-form input[name=Longitude]'),
+            headingField: $('.cms-edit-form input[name=Heading]'),
+            pitchField: $('.cms-edit-form input[name=Pitch]'),
             streetViewEnabled: ($('#GMapsObject_StreetView').length !== 0)
         };
 
-        var mapCenter = new google.maps.LatLng(
-                (ss.GMapsObject.latField.val()) ? parseFloat(ss.GMapsObject.latField.val()) : 51.511165,
-                (ss.GMapsObject.lngField.val()) ? parseFloat(ss.GMapsObject.lngField.val()) : -0.119774
-            ),
+        var mapCenter = new google.maps.LatLng(parseFloat(ss.GMapsObject.latField.val()), parseFloat(ss.GMapsObject.lngField.val())),
             mapOptions = {
                 zoom: 13,
                 center: mapCenter,
@@ -70,7 +66,7 @@ function initGMapsObject() {
             mapOptions.streetViewControl = true;
             mapOptions.streetView = panorama;
             map.setOptions(mapOptions);
-            
+
             google.maps.event.addListener(panorama, "position_changed", function() {
                 map.setCenter(panorama.getPosition());
                 updateLatLng();
@@ -95,12 +91,12 @@ function initGMapsObject() {
         $.entwine('ss', function($) {
 
             /**
-             * ID: #Root_GoogleMap[aria-hidden="false"]
+             * ID: #Root_Google_Map[aria-hidden="false"]
              *
              * Redraw map when tab becomes visible. Trigger resize event when switching tabs as
              * map will render at 0 width/height in inactive tabs. Also need to re-center after
              */
-            $('#Root_GoogleMap[aria-hidden="false"]').entwine({
+            $('#Root_Google_Map[aria-hidden="false"]').entwine({
                 // Constructor: onmatch
                 onmatch: function() {
                     var map = ss.GMapsObject.map;
@@ -142,8 +138,8 @@ function initGMapsObject() {
 }
 
 /**
- * Updates the hidden fields for coordinates and triggers an onchange event as
- * 3.1's changetracker needs that event to pick up the changes
+ * Updates the hidden fields for coordinates and triggers an onchange event, as
+ * changetracker needs that event to pick up the changes
  */
 function updateLatLng() {
     var latLng = ss.GMapsObject.marker.getPosition();
