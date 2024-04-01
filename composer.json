@@ -17,7 +17,7 @@
 	"require": {
 		"silverstripe/admin": "^1",
         "silverstripe/siteconfig": "^4",
-        "silverstripe/vendor-plugin": "^1"
+        "silverstripe/vendor-plugin": "^1 || ^2"
 	},
     "extra": {
         "expose": [
