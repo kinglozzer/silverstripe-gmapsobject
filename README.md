@@ -1,3 +1,5 @@
+Updated to php 8.1 and Silverstripe v5
+
 # SilverStripeGMapsObject
 
 A module to add a Google Map (optionally with Streetview) to a DataObject or Page, with users able to specify a location marker in the CMS. No front-end implementation is provided, though simple examples are shown below.
