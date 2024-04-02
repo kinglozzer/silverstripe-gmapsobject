@@ -1,5 +1,5 @@
 {
-	"name": "violet88/silverstripegmapsobject",
+	"name": "kinglozzer/silverstripegmapsobject",
 	"description": "Add a Google Map (optionally with Streetview) to a DataObject or Page",
 	"type": "silverstripe-vendormodule",
 	"homepage": "http://github.com/kinglozzer/silverstripe-gmapsobject",
