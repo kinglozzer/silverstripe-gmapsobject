@@ -2,7 +2,7 @@
 	"name": "kinglozzer/silverstripegmapsobject",
 	"description": "Add a Google Map (optionally with Streetview) to a DataObject or Page",
 	"type": "silverstripe-vendormodule",
-	"homepage": "https://github.com/kinglozzer/silverstripe-gmapsobject",
+	"homepage": "http://github.com/kinglozzer/silverstripe-gmapsobject",
 	"keywords": ["silverstripe", "google", "map", "gmap", "streetview", "street", "view"],
 	"authors": [
 		{
@@ -15,9 +15,9 @@
 		"issues": "https://github.com/kinglozzer/silverstripe-gmapsobject/issues"
 	},
 	"require": {
-		"silverstripe/admin": "^1",
-        "silverstripe/siteconfig": "^4",
-        "silverstripe/vendor-plugin": "^1"
+		"silverstripe/admin": "^1 || ^2",
+        "silverstripe/siteconfig": "^4 || ^5",
+        "silverstripe/vendor-plugin": "^1 || ^2"
 	},
     "extra": {
         "expose": [
